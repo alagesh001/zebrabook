@@ -26,7 +26,7 @@ export default function ConfirmationScreen() {
           onClick={handleConfirm}
           className="w-full py-4 bg-pink-600 text-white rounded-2xl font-bold text-xl hover:bg-pink-700 transition"
         >
-          Confirm Booking & Get Free PDF
+          Confirm Booking
         </button>
       </div>
     </div>

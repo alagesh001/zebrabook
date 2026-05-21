@@ -12,7 +12,15 @@ export default function FormScreen() {
       "7:00 AM - 7:30 AM",
       "7:30 AM - 8:00 AM",
       "10:00 AM - 10:30 AM",
-      "10:30 AM - 11:00 AM"
+      "10:30 AM - 11:00 AM",
+    ],
+    Afternoon: [
+      "3:00 PM - 3:30 PM",
+      "3:30 PM - 4:00 PM",
+      "4:00 PM - 4:30 PM",
+      "6:00 PM - 6:30 PM",
+      "6:30 PM - 7:00 PM",
+      "7:00 PM - 7:30 PM",
     ],
     Evening: [
       "3:00 PM - 3:30 PM",
@@ -25,13 +33,22 @@ export default function FormScreen() {
   };
 
   const availableSlots = [
-    "6:30 AM - 7:00 AM",
-    "10:00 AM - 10:30 AM",
-    "6:30 PM - 7:00 PM",
+    "6:00 AM - 6:30 AM",
+      "6:30 AM - 7:00 AM",
+      "7:00 AM - 7:30 AM",
+      "7:30 AM - 8:00 AM",
+      "10:00 AM - 10:30 AM",
+      "10:30 AM - 11:00 AM",
+        "3:00 PM - 3:30 PM",
+      "3:30 PM - 4:00 PM",
+      "4:00 PM - 4:30 PM",
+      "6:00 PM - 6:30 PM",
+      "6:30 PM - 7:00 PM",
+      "7:00 PM - 7:30 PM",
   ];
 
   const [activeTab, setActiveTab] = useState("Morning");
-  const [selectedSlot, setSelectedSlot] = useState("");
+  const [selectedSlot, setSelectedSlot] = useState("Morning");
   const [formData, setFormData] = useState({ name: "", mobile: "", age: "" });
   const [loading, setLoading] = useState(false);
 const [showSuccess, setShowSuccess] = useState(false);
@@ -142,7 +159,7 @@ const [showSuccess, setShowSuccess] = useState(false);
         Booking Successful!
       </h2>
       <p className="text-gray-600 text-center text-sm">
-        You will receive a PDF shortly to your Whatsapp.
+        You will receive a call from Zebra Team.
       </p>
 
       <button
@@ -168,16 +185,16 @@ const [showSuccess, setShowSuccess] = useState(false);
   Chennai - 600024
 </p>
    <h3 className="text-lg font-bold text-pink-600 text-center mb-1 mt-4">
-  Spoken Tamil, Hindi & English – All Under One Roof!
+  Online Spoken Tamil, Hindi & English – All Under One Roof!
 </h3>
 </div>
         {/* Title */}
         <h1 className="text-3xl font-extrabold text-center mb-1 tracking-tight">
-         Book 1 Free Class
+         Book Class
         </h1>
-        <p className="text-center font-regular mb-8 text-lg">
+        {/* <p className="text-center font-regular mb-8 text-lg">
          (You can pay ₹399 after first class)
-        </p>
+        </p> */}
 
         {/* Form Section */}
         <div className="space-y-5 mb-8">
@@ -222,24 +239,27 @@ const [showSuccess, setShowSuccess] = useState(false);
         </div>
 
         {/* Tabs */}
-        <div className="flex mb-5 border-b border-gray-200">
-          {Object.keys(slotTabs).map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`px-4 py-2 text-lg font-semibold flex-1 transition ${
-                activeTab === tab
-                  ? "text-pink-600 border-b-4 border-pink-600"
-                  : "text-gray-500 hover:text-gray-700"
-              }`}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
+       <div className="flex mb-5 border-b border-gray-200">
+  {Object.keys(slotTabs).map((tab) => (
+    <button
+      key={tab}
+      onClick={() => {
+        setActiveTab(tab);
+        setSelectedSlot(tab);
+      }}
+      className={`px-4 py-2 text-lg font-semibold flex-1 transition rounded-t-lg ${
+        activeTab === tab
+          ? "bg-green-500 text-white border-b-4 border-green-600"
+          : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+      }`}
+    >
+      {tab}
+    </button>
+  ))}
+</div>
 
         {/* Slot Grid */}
-        <div className="grid grid-cols-2 gap-4">
+        {/* <div className="grid grid-cols-2 gap-4">
           {slotTabs[activeTab].map((slot) => {
             const isAvailable = availableSlots.includes(slot);
             const isSelected = selectedSlot === slot;
@@ -263,29 +283,38 @@ const [showSuccess, setShowSuccess] = useState(false);
               </button>
             );
           })}
-        </div>
+        </div> */}
 
         {/* Selected Slot */}
-        {selectedSlot && (
+        {/* {selectedSlot && (
           <div className="mt-6 p-4 bg-green-50 text-green-700 text-center rounded-xl font-semibold border border-green-200 shadow-sm">
             Selected Slot: {selectedSlot}
           </div>
-        )}
+        )} */}
 
         {/* Submit Button */}
-        <button
-          disabled={!selectedSlot || loading}
-          onClick={handleSubmit}
-          className={`mt-8 w-full py-4 rounded-2xl text-xl font-bold transition shadow-md
-            ${
-              selectedSlot
-                ? "bg-pink-600 text-white hover:bg-pink-700 active:scale-95"
-                : "bg-gray-300 text-gray-600 cursor-not-allowed"
-            }
-          `}
-        >
-          {loading ? "Booking..." : "Book Now & Get Free PDF"}
-        </button>
+     <button
+  disabled={
+    !selectedSlot ||
+    loading ||
+    !formData.name ||
+    !formData.mobile ||
+    !formData.age
+  }
+  onClick={handleSubmit}
+  className={`mt-8 w-full py-4 rounded-2xl text-xl font-bold transition shadow-md
+    ${
+      selectedSlot &&
+      formData.name &&
+      formData.mobile &&
+      formData.age
+        ? "bg-green-600 text-white hover:bg-green-700 active:scale-95"
+        : "bg-gray-300 text-gray-600 cursor-not-allowed"
+    }
+  `}
+>
+  {loading ? "Booking..." : "Book Now"}
+</button>
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import FormScreen from "./FormScreen";
 import SlotScreen from "./SlotScreen";
 import ConfirmationScreen from "./ConfirmationScren"; // fix typo
+import FormScreen2 from "./FormScreen2";
 
 export default function App() {
   return (
